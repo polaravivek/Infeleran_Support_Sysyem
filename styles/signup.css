@@ -1,0 +1,65 @@
+body
+    {
+       margin: 0;
+       padding: 0;
+       font-family: sans-serif;
+       background: #34495e;
+    }
+    .signup h1 {
+        color: white;
+        text-transform: uppercase;
+        font-weight: 500;
+     }
+    .signup{
+      width: 300px;
+      padding: 40px;
+      border-radius: 30px;
+      position: absolute;
+      top: 50% ;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+      background: black;
+   }
+   .fname,.lname,.email,.mno,.pswrd{
+      color:white;
+   }
+   .fname input[type="text"],.lname input[type ="text"],.email input[type="email"],.mno input[type ="tel"],.pswrd input[type ="password"]
+   {
+      border: 0;
+      background: none;
+      display: block;
+      margin: 10px auto;
+      text-align: center;
+      border: 2px solid #4398db;
+      padding: 14px 10px;
+      width: 200px;
+      outline:none;
+      color: white;
+      border-radius:24px;
+      transition: 00.25s;
+      
+      
+   }
+   .fname input[type="text"]:focus,.lname input[type ="text"]:focus,.email input[type="email"]:focus,.mno input[type ="tel"]:focus,.pswrd input[type ="password"]:focus
+   {
+      width: 280px;
+      border-color: aqua;
+
+   }
+   .send input[type="submit"]{border: 0;
+      background: none;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      border: 2px solid #4398db;
+      padding: 14px 40px;
+      outline:none;
+      color: white;
+      border-radius:24px;
+      transition: 00.25s; 
+      cursor: pointer;
+   }
+   .send input[type="submit"]:hover{
+      background: aquamarine
+   } 
