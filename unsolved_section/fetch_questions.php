@@ -1,6 +1,6 @@
 <?php
 
-    include('connection.php');
+    include('../database/db.php');
     include('model.php');
 
     $query="select * from questions where unsolved = 1";
@@ -44,7 +44,7 @@
 			transition: 3s ease all;
 		}
 
-		.question1{
+		.main_question_div{
 			width: 1300px;
 			height: 170px;
 			border-radius: 8px;
@@ -56,11 +56,11 @@
 			cursor: pointer
 		}
 
-		.question1:hover:before{
+		.main_question_div:hover:before{
 			transform: scale(1.1);
 			box-shadow: 0 0 15px #ffee10;
 		}
-		.question1:hover{
+		.main_question_div:hover{
 			color: #ffee10;
 			box-shadow: 0 0 5px #ffee10;
 		}
@@ -73,7 +73,13 @@
 			color: #ffffff;
 			padding: 20px;
 		}
-		.name{
+		.sub_details{
+			font-family: cursive;
+			font-weight: 400;
+			margin-left: 20px;
+			color: #ffffff;
+		}
+		#name{
 			font-family: cursive;
 			font-size: 20px;
 			font-weight: 200;
@@ -82,18 +88,17 @@
 			color: grey;
 			padding: 20px;
 		}
-		.title{
+		#category{
 			float: right;
 			margin-right: 45px;
 		}
-		.question{
+		#question{
 			margin-left: 30px;
 		}
-		.date{
-			float: right;
-			margin-right: 50px;
+		#date{
 			color: grey;
-			padding: 15px;
+			float: right;
+			margin-right: 65px;
 		}
 		.cont{
 			margin: auto;
@@ -107,6 +112,8 @@
 </head>
 
 <body>
+	<!-- navigation bar -->
+
 	<nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
 	  <a href="/" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png" style="width: 130px;height:50px;background-color: #fff;	"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
@@ -136,7 +143,7 @@
 					  <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					  <img src="../images/bill_gates.jpg" width="40" height="40" class="rounded-circle">
 					  </a>
-					  <div class="dropdown-menu dropdown-menu-right" >
+					  <div class="dropdown-menu dropdown-menu-right" style="border-color: black;box-shadow: 5px 5px 5px rgb(87, 87, 87); margin-top: 10px ; margin-right: 10px">
 						<a class="dropdown-item" href="#">Profile</a>
 						<a class="dropdown-item" href="#">My Questions</a>
 						<a class="dropdown-item" href="#">Log Out</a>
@@ -146,16 +153,20 @@
 			</div>
 	  </div>
 	</nav>
+
+	<!--end navigation bar -->
+
+	<!-- adding jquery -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	
 	<script>
 	    function reply_click(event)
 	  {
 	       var target = event.target || event.srcElement;
 		   var str = target.innerHTML;
-		   var ques = str.substr(str.indexOf(' ')+1);
-
-	    alert ( ques )
-	      location.replace(`http://localhost:80/infelearn/fetching/shreyansh/query.php?	ques=${ques}`)
+		   
 	  }
 
 	</script>
@@ -184,30 +195,34 @@
                 $i++;
             ?>
 			
-			<div class="question1" onClick='reply_click(event)'>
+			<div class="main_question_div" onClick='reply_click(event)'>
 				<div class="main_question">
+				<span id = "question">
                     <?php
-                  echo '<span class = "question">Q-'.$i." ".$title.'</span>';
+                  echo 'Q-'.$i." ".$title;
                     ?>
-					<span class="title">
+					</span>
+					<span id="category">
                     <?php
                   echo $category;
                     ?>
                     </span>
 				</div>
-				<span class="name">
-                    <?php
-                  echo '- '.$email;
-              ?>
-				</span>
-				
-				<span class="date">
-                <?php
-					$string = $created_at;
-					$data   = preg_split('/\s+/', $string);
-                  echo ''.$data[0];
-              ?>
-                </span>
+				<div class="sub_details">
+					<span id="name">
+									<?php
+								  echo '- '.$email;
+									  ?>
+					</span>
+					
+					<span id="date">
+								<?php
+						$string = $created_at;
+						$data   = preg_split('/\s+/', $string);
+								  echo ''.$data[0];
+							  ?>
+					</span>
+				</div>
 
                 </div>
 				
@@ -215,7 +230,36 @@
 
                 <?php 
                 }
-            ?>
+            	?>
+
+			<script>
+
+				function myTrim(x) {
+				  return x.replace(/^\s+|\s+$/gm,'');
+				}
+
+				$(document).ready(function(){
+					$('.main_question_div').on('click',function(){
+						$div = $(this).closest('div');
+
+						var data = $div.children('div').children('span').map(function(){
+							return $(this).text();
+						}).get();
+
+						var str = data[0];
+						var trimStr = myTrim(str);
+
+						var ques = trimStr.substr(trimStr.indexOf(' ')+1);
+
+	    				alert ( ques );
+
+	    				location.replace(`http://localhost:80/infelearn/fetching/shreyansh/query.php?	ques=${ques}`)
+
+						console.log(data[0]);
+					});
+				});
+
+			</script>
 		
 	</div>
 
