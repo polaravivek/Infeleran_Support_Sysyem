@@ -3,6 +3,20 @@
 $question = htmlspecialchars($_GET["ques"]);
 
     include('../database/db.php');
+    
+    session_start();
+    if(!isset($_SESSION['loggedin'])) {
+		header("Location: ../index.php");
+    }
+
+    $current_email = $_SESSION["email"];
+    $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
+    $result_login = $link->query($query_login) or die($link->error);
+    
+    while($row = $result_login->fetch_assoc()){
+        $image_profile = $row["photo"];
+    }
+
 
     $queryQuestion ="select * from questions where title = '$question'";
     $resultQuestion = $link->query($queryQuestion) or die($link->error);
@@ -20,8 +34,6 @@ $question = htmlspecialchars($_GET["ques"]);
 ?>
 
 <?php
-
-    session_start();
 
       $query="SELECT * FROM student_login where email='".$_SESSION["email"]."'";
       $result = $link->query($query) or die($link->error);
@@ -127,8 +139,15 @@ $question = htmlspecialchars($_GET["ques"]);
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../images/bill_gates.jpg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px;">
+                            <?php
+                                if($image_profile == null){
+                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }else{
+                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }
+                            ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">

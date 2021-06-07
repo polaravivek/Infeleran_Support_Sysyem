@@ -2,45 +2,56 @@
 
     include_once '../database/db.php';
     session_start();
+    if(!isset($_SESSION['loggedin'])) {
+		header("Location: ../index.php");
+    }
 
-      $query="SELECT * FROM student_login where email='".$_SESSION["email"]."'";
-      $result = $link->query($query) or die($link->error);
-      if ($result->num_rows > 0) {
+    $current_email = $_SESSION["email"];
+    $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
+    $result_login = $link->query($query_login) or die($link->error);
 
-          while($row = $result->fetch_assoc()) {
+    while($row = $result_login->fetch_assoc()){
+        $image_profile = $row["photo"];
+    }
 
-              $name=$row["name"];
+    $query="SELECT * FROM student_login where email='".$_SESSION["email"]."'";
+    $result = $link->query($query) or die($link->error);
+    if ($result->num_rows > 0) {
 
-          }
-      } else {
-        echo "0 results";
-      }
+        while($row = $result->fetch_assoc()) {
 
-      #setting validation error array
-      $errors = array();
-      #checking if form was submitted
-      if (isset($_POST["submit"])) {
+            $name=$row["name"];
 
-            $title=mysqli_real_escape_string($link, $_POST["title"]);
-            $category=mysqli_real_escape_string($link, $_POST["category"]);
-
-            $description=mysqli_real_escape_string($link, $_POST["description"]);
-
-            $image = $_FILES['photo']['name'];
-            $images = addslashes(file_get_contents($_FILES["photo"]["tmp_name"]));
-          if (count($errors)== 0) {
-
-            $query = "INSERT INTO questions(name, title,category, description, document,unsolved) VALUES ('$name','$title', '$category','$description', '$images','1')";
-
-          if (mysqli_query($link, $query)) {
-
-          	  header('Location: ../unsolved_section/fetch_questions.php');
-
-            } else{
-                array_push($errors, "Data inserting failed try again");
-            }
-            }
         }
+    } else {
+      echo "0 results";
+    }
+
+    #setting validation error array
+    $errors = array();
+    #checking if form was submitted
+    if (isset($_POST["submit"])) {
+
+          $title=mysqli_real_escape_string($link, $_POST["title"]);
+          $category=mysqli_real_escape_string($link, $_POST["category"]);
+
+          $description=mysqli_real_escape_string($link, $_POST["description"]);
+
+          $image = $_FILES['photo']['name'];
+          $images = addslashes(file_get_contents($_FILES["photo"]["tmp_name"]));
+        if (count($errors)== 0) {
+
+          $query = "INSERT INTO questions(name, title,category, description, document,unsolved) VALUES ('$name','$title', '$category','$description', '$images','1')";
+
+        if (mysqli_query($link, $query)) {
+
+        	  header('Location: ../unsolved_section/fetch_questions.php');
+
+          } else{
+              array_push($errors, "Data inserting failed try again");
+          }
+          }
+      }
  ?>
 
 <!DOCTYPE html>
@@ -88,7 +99,6 @@
         width: 60%;
         border-color: black 2px;
         background-color: #212838;
-        box-shadow: .5rem 2px .5rem rgba(0, 0, 0, 0.1);
         padding: 20px;
         border-radius: 5px;
         font-size: 16px;
@@ -108,7 +118,6 @@
         margin: 8px 0;
         color: black;
         display: inline-block;
-        box-shadow: 0 0 15px #05b2a7;
         border-radius: 4px;
         box-sizing: border-box;
         text-align: center;
@@ -119,7 +128,6 @@
         margin-left: 150px;
         width: 15%;
         padding: 4px 4px;
-        box-shadow: 0 0 15px #05b2a7;
         box-sizing: border-box;
         text-align: center;
     }
@@ -130,7 +138,6 @@
         color: black;
         padding: 12px 20px;
         box-sizing: border-box;
-        box-shadow: 0 0 15px #696969;
         border-radius: 4px;
         background-color: #f8f8f8;
         font-size: 16px;
@@ -193,8 +200,15 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../images/bill_gates.jpg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
+                            <?php
+                                if($image_profile == null){
+                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }else{
+                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }
+                            ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">

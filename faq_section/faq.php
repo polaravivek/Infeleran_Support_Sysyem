@@ -1,3 +1,18 @@
+<?php
+  include('../database/db.php');
+  session_start();
+	if(!isset($_SESSION['loggedin'])) {
+		header("Location: ../index.php");
+  }
+
+  $current_email = $_SESSION["email"];
+  $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
+  $result_login = $link->query($query_login) or die($link->error);
+
+  while($row = $result_login->fetch_assoc()){
+    $image_profile = $row["photo"];
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,8 +74,15 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="billgates.jpeg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
+                            <?php
+                                if($image_profile == null){
+                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }else{
+                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }
+                            ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
@@ -96,7 +118,8 @@
                             <div class="question-answer__accordion">
                                 <div class="question">
                                     <h3 class="title__question">
-                                        <a href="#" style="text-decoration: none; color:white">Infelearn classes program
+                                        <a href="#" style="text-decoration: none; color:white">Infelearn classes
+                                            program
                                             is available for which classes ?</a>
                                     </h3>
                                     <img src="../svg_files/icon-arrow-down.svg">
@@ -125,7 +148,8 @@
                         <div class="question-answer__accordion">
                             <div class="question">
                                 <h3 class="title__question">
-                                    <a href="#" style="text-decoration: none; color:white"> Do you give lesson notes and
+                                    <a href="#" style="text-decoration: none; color:white"> Do you give lesson notes
+                                        and
                                         homework?</a>
                                 </h3>
                                 <img src="../svg_files/icon-arrow-down.svg">
@@ -133,7 +157,8 @@
                             <div class="answer ">
                                 Yes, homework will be provided after every class. Your child can submit their
                                 Infelearn's Classes homework on our platform to get the teacher's feedback.
-                                Additionally, your child can also access engaging video lessons and practice tests on
+                                Additionally, your child can also access engaging video lessons and practice tests
+                                on
                                 the Infelearn'S app to revise and practice anytime anywhere.
                             </div>
                         </div>
@@ -159,13 +184,15 @@
                         <div class="question-answer__accordion">
                             <div class="question">
                                 <h3 class="title__question">
-                                    <a href="#" style="text-decoration: none; color:white"> Do you provide additional
+                                    <a href="#" style="text-decoration: none; color:white"> Do you provide
+                                        additional
                                         support?</a>
                                 </h3>
                                 <img src="../svg_files/icon-arrow-down.svg">
                             </div>
                             <div class="answer ">
-                                Chat and email support is available 24/7. Phone lines are open during normal business
+                                Chat and email support is available 24/7. Phone lines are open during normal
+                                business
                                 hours.
                             </div>
                         </div>
@@ -175,14 +202,16 @@
                         <div class="question-answer__accordion">
                             <div class="question">
                                 <h3 class="title__question">
-                                    <a href="#" style="text-decoration: none; color:white">Where can I track my child's
+                                    <a href="#" style="text-decoration: none; color:white">Where can I track my
+                                        child's
                                         progress?</a>
                                 </h3>
                                 <img src="../svg_files/icon-arrow-down.svg">
                             </div>
                             <div class="answer ">
                                 Mentors will be in touch with you regularly to discuss your child's progress.
-                                Monthly PTA meetings will also be conducted and a comprehensive progress report will be
+                                Monthly PTA meetings will also be conducted and a comprehensive progress report will
+                                be
                                 shared with you, to help you be a part of their learning journey.
                             </div>
                         </div>

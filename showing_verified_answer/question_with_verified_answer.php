@@ -2,14 +2,27 @@
 
 $question = htmlspecialchars($_GET["ques"]);
 
+    session_start();
+    
+    if(!isset($_SESSION['loggedin'])) {
+		header("Location: ../index.php");
+    }
+    
     include('../models/answer.php');
-
     include('../database/db.php'); 
     // $questionWith = mysqli_real_escape_string($link,$question);
 
     $queryQuestion ="select * from questions where title = '$question'";
     $resultQuestion = $link->query($queryQuestion) or die($link->error);
+    
+    $current_email = $_SESSION["email"];
+    $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
+    $result_login = $link->query($query_login) or die($link->error);
 
+    while($row = $result_login->fetch_assoc()){
+        $image_profile = $row["photo"];
+    }
+    
     while($row = $resultQuestion->fetch_assoc()) {
 
         $title = $row['title'];
@@ -89,8 +102,15 @@ $question = htmlspecialchars($_GET["ques"]);
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="../images/bill_gates.jpg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
+                            <?php
+                                if($image_profile == null){
+                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }else{
+                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
+                                }
+                            ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
@@ -151,19 +171,17 @@ $question = htmlspecialchars($_GET["ques"]);
                             echo '<img src="data:image;base64,'.base64_encode($image).'">';
                         ?>
                 </div>
-
             </div>
 
 
-            <div class="button_post_answer" style="background-color:rgb(255, 130, 130)">
+            <div class=" button_post_answer" style="background-color:rgb(255, 130, 130)">
 
-                <a class="post_text" style="color:black;    font-weight:bold;align:center">
+                <a class="post_text" style="color:white;    font-weight:bold;align:center">
                     Post Answer
                 </a>
 
             </div>
         </div>
-
     </div>
 
     <!-- question part -->
@@ -183,11 +201,22 @@ $question = htmlspecialchars($_GET["ques"]);
             foreach($items as $row){
                 $name = $row->get_answer_name();
                 $answer = $row->get_answer();
+                $answer_image = $row->get_answered_document();
+                $verified = $row->get_verified();
         ?>
+
         <div class="list_box">
-            <div class="answer_user_details">
-                <p class="answer_user_text"><?php echo $name ?></p>
-            </div>
+            <?php
+            if($verified == '1'){
+                echo '<div class="answer_user_details" style="background-color: green;">
+                <p class="answer_user_text" style="color:white;">'.$name.'</p>
+        </div>';
+        }else{
+            echo '<div class="answer_user_details" style="color:#929292">
+                <p class="answer_user_text">'.$name.'</p>
+        </div>';
+        }
+        ?>
 
             <h2 style="margin: 40px 40px 5px 100px">Answer</h2>
 
@@ -198,7 +227,11 @@ $question = htmlspecialchars($_GET["ques"]);
                 ?>
 
                 <div class="document_img">
-                    <img src="../images/bill_gates.jpg">
+                    <?php
+                        if($answer_image != null){
+                            echo '<img src="data:image;base64,'.base64_encode($answer_image).'">';
+                        }
+                    ?>
                 </div>
 
             </div>
@@ -212,7 +245,8 @@ $question = htmlspecialchars($_GET["ques"]);
 
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
 
     <script>
     function myTrim(x) {
