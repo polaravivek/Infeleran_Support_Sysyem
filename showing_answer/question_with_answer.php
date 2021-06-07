@@ -1,35 +1,32 @@
 <?php
 
+$question = htmlspecialchars($_GET["ques"]);
+
+    include('../models/answer.php');
+
     include('../database/db.php');
-    include('../models/model.php');
 
-	session_start();
+    $queryQuestion ="select * from questions where title = '$question'";
+    $resultQuestion = $link->query($queryQuestion) or die($link->error);
 
-    $current_email = $_SESSION["email"];
-    $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
-    $result_login = $link->query($query_login) or die($link->error);
+    while($row = $resultQuestion->fetch_assoc()) {
 
-	if(!isset($_SESSION['loggedin'])) {
-		header("Location: ../index.php");
-	}	
-
-    while($row = $result_login->fetch_assoc()){
-        $image_profile = $row["photo"];
+        $title = $row['title'];
+        $name = $row['name'];
+        $category = $row['category'];
+        $created_at = $row['created_at'];
+        $description = $row['description'];
+        $image = $row['document'];
     }
 
-	// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-	// 	header("location: ../index.php");
-	// 	exit;
-	// }
-
-    $query="select * from questions where unsolved = 1";
+    $query="select * from solved where title = '$title'";
     $result = $link->query($query) or die($link->error);
 
     $items = array();
     while($row = $result->fetch_assoc()) {
-        $object = new Questions($row['name'],$row['title'],$row['category'],$row['description'],$row['document'],$row['unsolved'],$row['solved'],$row['created_at']);
+        $item = new Answers($row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['created_at']);
 
-        $items[] = $object;
+        $items[] = $item;
     }
 ?>
 
@@ -37,6 +34,9 @@
 <html lang="en">
 
 <head>
+
+    <title>question and answers</title>
+    <link rel="stylesheet" href="../styles/question_with_answer.css?v=<?php echo time(); ?>">
 
     <!-- navigation bar -->
 
@@ -54,13 +54,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- end navigation -->
-
-    <!-- search box -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-    <link rel="stylesheet" href="../styles/searchBox.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../styles/fetch_question.css?v=<?php echo time(); ?>">
 
 </head>
 
@@ -95,15 +88,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php
-                                if($image_profile == null){
-                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
-                                }else{
-                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
-                                }
-                            ?>
+                            <img src="../images/bill_gates.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
@@ -119,81 +105,117 @@
 
     <!--end navigation bar -->
 
-    <!-- search box -->
-
-    <div class="search_div">
-        <div class="search-box">
-            <input type="text" placeholder=" " /><span></span>
-        </div>
-        <span style="font-size:1.5rem;margin-top: 20px;margin-left: 20px">Click Me</span>
-    </div>
-
-    <script src="../javascript/script.js"></script>
-
-    <!-- end search box -->
-
     <div class="cont">
 
+        <div class="main_question_div">
+            <div class="main_question">
+                <span id="question">
+                    <?php echo $title
+                        ?>
+                </span>
+                <span id="category">
+                    <?php echo $category
+                        ?>
+                </span>
+            </div>
+            <div class="sub_details">
+                <span id="name">
+                    <?php echo '-'.$name
+                        ?>
+                </span>
+
+                <span id="date">
+                    <?php
+				    $string = $created_at;
+				    $data   = preg_split('/\s+/', $string);
+				    		  echo ''.$data[0];
+			        ?>
+                </span>
+            </div>
+
+        </div>
+
+        <div class="description">
+
+            <h2 style="margin: 60px 40px 5px 60px">Description</h2>
+
+            <div class="description_with_document">
+
+                <?php
+                        echo $description;
+                    ?>
+
+                <div class="document_img">
+                    <?php
+                        if($image != null){
+                            echo '<img src="data:image;base64,'.base64_encode($image).'">';
+                        }
+                    ?>
+                </div>
+            </div>
+
+            <div class="button_post_answer" style="background-color:rgb(255, 130, 130)">
+
+                <a class="post_text" style="color:white; font-weight:bold;align:center">
+                    Post Answer
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- question part -->
+
+    <div class="main_border">
+
         <?php
-            $i = 0;
+            
             if(count($items) == 0){
                 echo "
                     <div style='font-size: 20px;
                     text-align:center;width:80%;padding:40px;background-color:#212838; color:white; margin: auto;'>
                     No answer available
-                </div>
-            ";
+                    </div>
+                ";
         }else{
             foreach($items as $row){
-                $title = $row->get_title();
-                $description = $row->get_description();
-                $category = $row->get_category();
-                $email = $row->get_email();
-                $created_at = $row->get_created_at();
-                $i++;
-            ?>
+                $name = $row->get_answer_name();
+                $answer = $row->get_answer();
+                $answer_image = $row->get_answered_document();
+        ?>
 
-        <div class=" main_question_div">
-            <div class="main_question">
-                <span id="question">
-                    <?php
-                  echo 'Q-'.$i." ".$title;
-                    ?>
-                </span>
-                <span id="category">
-                    <?php
-                  echo $category;
-                    ?>
-                </span>
-            </div>
-            <div class="sub_details">
-                <span id="name">
-                    <?php
-					 		echo '- '.$email;
-						?>
-                </span>
-
-                <span id="date">
-                    <?php
-						$string = $created_at;
-						$data   = preg_split('/\s+/', $string);
-								  echo ''.$data[0];
-							  ?>
-                </span>
+        <div class="list_box">
+            <div class="answer_user_details">
+                <p class="answer_user_text"><?php echo $name ?></p>
             </div>
 
+            <h2 style="margin: 40px 40px 5px 100px">Answer</h2>
+
+            <div class="description_with_doc">
+
+                <?php
+                    echo $answer;
+                ?>
+
+                <div class="document_img">
+                    <?php
+                        if($answer_image != null){
+                            echo '<img src="data:image;base64,'.base64_encode($answer_image).'">';
+                        }
+                    ?>
+                </div>
+
+            </div>
         </div>
+        <?php
+            }
+        ?>
+        <?php
+            }
+        ?>
 
     </div>
-
-    <?php 
-                }
-            	?>
-    <?php 
-                }
-            	?>
-
-    <!-- adding jquery for fetch question by clicking -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -203,31 +225,19 @@
     }
 
     $(document).ready(function() {
-        $('.main_question_div').on('click', function() {
-            $div = $(this).closest('div');
 
-            var data = $div.children('div').children('span').map(function() {
-                return $(this).text();
-            }).get();
+        $('.button_post_answer').on('click', function() {
 
-            console.log(data);
-            var str = data[0];
-            var user = data[3];
-            var trimStr = myTrim(str);
-
-            var ques = trimStr.substr(trimStr.indexOf(' ') + 1);
-
-            // alert ( user );
+            var str = $('#question').text();
+            var question = myTrim(str);
 
             location.replace(
-                `http://localhost:80/merge/showing_answer/question_with_answer.php?	ques=${ques}`
+                `http://localhost:80/merge/unsolved_answer_input/unsolved_ask.php? ques=${question}`
             )
 
-            console.log(data[0]);
         });
     });
     </script>
-    </div>
 
 </body>
 

@@ -1,0 +1,152 @@
+.question{
+    margin: 5px 40px 5px 40px;
+    border-radius: 10px;
+    background-color: rgb(255, 130, 130);
+    color: black;
+    box-shadow: 5px 5px 5px rgb(87, 87, 87);
+}
+
+.title_question{
+    font-size: 1.5vw;
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+.asked_user{
+    font-size: 1.2vw;
+    padding: 10px;
+    margin: 5px 0px 5px 0px;
+}
+
+.description_with_document{
+    
+    padding-top : 20px;
+    margin: 5px 40px 5px 60px;
+}
+
+.description_with_doc{
+    width:1100px;
+    padding-top : 20px;
+    margin: 5px 40px 5px 100px;
+}
+
+.post_text{
+    color: #fff;
+    padding: 10px 20px 10px 20px;
+    display: inline-block;
+}
+
+.button_post_answer{
+    background-color: #B9B9B9;
+    border-radius:20px;
+    float: right;
+    margin-right: 50px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 2px rgb(87, 87, 87);
+    cursor: pointer;
+}
+
+.main_border{
+    width: 1300px;
+    border: 2px solid #FF7E7E;
+    clear: both;
+    margin: 40px auto;
+}
+.list_box{
+    margin: 20px auto;
+    width:1300px;
+}
+.answer_user_details{
+    width: 1100px;
+    background-color: #E5E5E5;
+    margin: auto;
+    box-shadow: 2px 2px 2px rgb(87, 87, 87);
+}
+.answer_user_text{
+    color: #929292;
+    margin-left: 20px;
+    padding:15px;
+}
+
+/* question */
+
+.main_question_div{
+    width: 1300px;
+    height: 170px;
+    border-radius: 8px;
+    background-size: cover;
+    background-color: #212838;
+    box-shadow: .5rem 2px .5rem rgba(0, 0, 0, 0.1);
+    border: 2px solid grey;
+    margin: 20px auto;
+}
+
+.description{
+    width: 1300px;
+    height: 170px;
+    margin: 60px auto;
+}
+
+.document_img img{
+    margin: 20px 0px 50px 0px;
+    width: 600px;
+    height: 600px;
+}
+
+.main_question_div:hover:before{
+    transform: scale(1.1);
+    box-shadow: 0 0 15px;
+}
+.main_question_div:hover{
+    box-shadow: 0 0 5px;
+}
+.main_question{
+    font-family: cursive;
+    font-size: 25px;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #ffffff;
+    padding: 20px;
+}
+.sub_details{
+    font-family: cursive;
+    font-weight: 400;
+    margin-left: 20px;
+    color: #ffffff;
+}
+#name{
+    font-family: cursive;
+    font-size: 20px;
+    font-weight: 200;
+    margin-bottom: 10px;
+    margin-left: 50px;
+    color: grey;
+    padding: 20px;
+}
+#category{
+    float: right;
+    margin-right: 45px;
+}
+#question{
+    margin-left: 30px;
+}
+#date{
+    color: grey;
+    float: right;
+    margin-right: 65px;
+}
+.cont{
+    margin: auto;
+    clear: both;
+}
+.active a{
+    color: rgb(255, 130, 130) !important;
+}
+
+.search_div{
+    float: right;
+    margin-right: 90px;
+    margin-bottom:20px;
+}

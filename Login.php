@@ -2,10 +2,10 @@
 
 session_start();
 
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: unsolved_section/unsolved.php");
-    exit;
-}
+// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+//     header("location: unsolved_section/fetch_questions.php");
+//     exit;
+// }
 
 require_once "database/db.php";
 
@@ -66,9 +66,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $student_id;
                             $_SESSION["email"] = $email;                            
-                            
                          
-                            header("location: unsolved/unsolved.php");
+                            header("location: unsolved_section/fetch_questions.php");
                         } else{
                             
                             $password_err = "The password you entered was not valid.";

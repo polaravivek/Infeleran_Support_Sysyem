@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
 .search-box {
-  border: solid 3px #212838;
+  border: solid 4px #212838;
   display: inline-block;
   position: relative;
   border-radius: 50px;
@@ -59,7 +59,7 @@
 .search-box span:before, .search-box span:after {
   content: '';
   height: 25px;
-  border-left: solid 3px #212838;
+  border-left: solid 4px #212838;
   position: absolute;
   transform: rotate(-45deg);
 }
@@ -71,5 +71,3 @@
   right: -10px;
   transition: top 300ms ease-out, right 300ms ease-out, opacity 300ms ease-out;
 }
-
-/* new search size */

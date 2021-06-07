@@ -5,24 +5,16 @@
 
 	session_start();
 
-    $current_email = $_SESSION["email"];
-    $query_login = "SELECT * FROM student_login WHERE email ='".$current_email."'";
-    $result_login = $link->query($query_login) or die($link->error);
-
 	if(!isset($_SESSION['loggedin'])) {
 		header("Location: ../index.php");
 	}	
-
-    while($row = $result_login->fetch_assoc()){
-        $image_profile = $row["photo"];
-    }
 
 	// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 	// 	header("location: ../index.php");
 	// 	exit;
 	// }
 
-    $query="select * from questions where unsolved = 1";
+    $query="select * from questions where solved = 1";
     $result = $link->query($query) or die($link->error);
 
     $items = array();
@@ -60,8 +52,94 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <link rel="stylesheet" href="../styles/searchBox.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../styles/fetch_question.css?v=<?php echo time(); ?>">
 
+    <!-- end search box -->
+
+    <style>
+    html {
+        margin: 0px;
+        padding: 0px transition: 3s ease all;
+    }
+
+    .main_question_div {
+        width: 90%;
+        height: 170px;
+        border-radius: 8px;
+        background-size: cover;
+        background-color: #212838;
+        box-shadow: .5rem 2px .5rem rgba(0, 0, 0, 0.1);
+        border: 2px solid grey;
+        margin: 20px auto;
+        cursor: pointer
+    }
+
+    .main_question_div:hover:before {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px #ffee10;
+    }
+
+    .main_question_div:hover {
+        color: #ffee10;
+        box-shadow: 0 0 5px #ffee10;
+    }
+
+    .main_question {
+        font-family: cursive;
+        font-size: 25px;
+        font-weight: 400;
+        margin-top: 20px;
+        margin-left: 20px;
+        color: #ffffff;
+        padding: 20px;
+    }
+
+    .sub_details {
+        font-family: cursive;
+        font-weight: 400;
+        margin-left: 20px;
+        color: #ffffff;
+    }
+
+    #name {
+        font-family: cursive;
+        font-size: 20px;
+        font-weight: 200;
+        margin-bottom: 10px;
+        margin-left: 50px;
+        color: grey;
+        padding: 20px;
+    }
+
+    #category {
+        float: right;
+        margin-right: 45px;
+    }
+
+    #question {
+        margin-left: 30px;
+    }
+
+    #date {
+        color: grey;
+        float: right;
+        margin-right: 65px;
+    }
+
+    .cont {
+        margin: auto;
+        clear: both;
+    }
+
+    .active a {
+        color: rgb(255, 130, 130) !important;
+    }
+
+    .search_div {
+        float: right;
+        margin-right: 90px;
+        margin-bottom: 20px;
+    }
+    </style>
 </head>
 
 <body>
@@ -75,11 +153,11 @@
         </button>
         <div class="navbar-collapse collapse w-50" id="collapsingNavbar3">
             <ul class="navbar-nav w-100 justify-content-center">
-                <li class="nav-item active justify-content-center w-30">
+                <li class="nav-item justify-content-center w-30">
                     <a class="nav-link " href="../unsolved_section/fetch_questions.php"><b>Unsolved</b></a>
                 </li>
                 <div style="width:30px"></div>
-                <li class="nav-item w-30">
+                <li class="nav-item active w-30">
                     <a class="nav-link" href="../solved_section/solved.php"><b>Solved</b></a>
                 </li>
                 <div style="width:30px"></div>
@@ -95,15 +173,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php
-                                if($image_profile == null){
-                                    echo '<img src="../images/profile_pic_default.jpg" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
-                                }else{
-                                    echo '<img src="data:image;base64,'.base64_encode($image_profile).'" width="50" height="50" class="rounded-circle"
-                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">';
-                                }
-                            ?>
+                            <img src="../images/bill_gates.jpg" width="50" height="50" class="rounded-circle"
+                                style="border-color: black;box-shadow: 3px 3px 3px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
@@ -136,7 +207,7 @@
 
         <?php
             $i = 0;
-            if(count($items) == 0){
+			if(count($items) == 0){
                 echo "
                     <div style='font-size: 20px;
                     text-align:center;width:80%;padding:40px;background-color:#212838; color:white; margin: auto;'>
@@ -153,7 +224,7 @@
                 $i++;
             ?>
 
-        <div class=" main_question_div">
+        <div class="main_question_div">
             <div class="main_question">
                 <span id="question">
                     <?php
@@ -192,7 +263,6 @@
     <?php 
                 }
             	?>
-
     <!-- adding jquery for fetch question by clicking -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -220,7 +290,7 @@
             // alert ( user );
 
             location.replace(
-                `http://localhost:80/merge/showing_answer/question_with_answer.php?	ques=${ques}`
+                `http://localhost:80/merge/showing_verified_answer/question_with_verified_answer.php?	ques=${ques}`
             )
 
             console.log(data[0]);

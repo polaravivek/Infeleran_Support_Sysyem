@@ -8,15 +8,14 @@ body{
     margin: 0 auto;
     padding: 0;
     font-family: Verdana;
-
     color: white;
-   
+
 }
 
 header{
    margin: auto;
    height: 80vh;
-    background-image:url("index_back.png");
+    background-image:url("../images/index_back.png");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
