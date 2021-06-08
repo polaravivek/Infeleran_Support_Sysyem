@@ -4,7 +4,7 @@ $question = htmlspecialchars($_GET["ques"]);
 
     include('../models/answer.php');
     include('../database/db.php');
-    
+
     session_start();
     if(!isset($_SESSION['loggedin'])) {
 		header("Location: ../index.php");

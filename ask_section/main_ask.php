@@ -81,91 +81,7 @@
 
     <title>Document</title>
 
-    <style type="text/css">
-    .li1 {
-        color: coral;
-        margin-top: 20px;
-        font-size: 25px;
-        text-align: center;
-    }
-
-    .active a {
-        color: rgb(255, 130, 130) !important;
-    }
-
-    .form {
-        border: 0cm;
-        margin: 40px auto;
-        width: 60%;
-        border-color: black 2px;
-        background-color: #212838;
-        padding: 20px;
-        border-radius: 5px;
-        font-size: 16px;
-
-    }
-
-    .form1 {
-        margin-left: 20px;
-        margin-top: 20px;
-        color: white;
-    }
-
-    .input {
-        width: 25%;
-
-        padding: 12px 20px;
-        margin: 8px 0;
-        color: black;
-        display: inline-block;
-        border-radius: 4px;
-        box-sizing: border-box;
-        text-align: center;
-    }
-
-    .c1 {
-        color: black;
-        margin-left: 150px;
-        width: 15%;
-        padding: 4px 4px;
-        box-sizing: border-box;
-        text-align: center;
-    }
-
-    .textarea {
-        width: 100%;
-        height: 150px;
-        color: black;
-        padding: 12px 20px;
-        box-sizing: border-box;
-        border-radius: 4px;
-        background-color: #f8f8f8;
-        font-size: 16px;
-        resize: none;
-    }
-
-    .submit {
-        margin-left: 2000px;
-        text-align: center;
-        background-color: rgb(255, 130, 130);
-        box-shadow: 2px 2px 2px rgb(8, 8, 8);
-        color: white;
-        border: none;
-        padding: 8px 24px;
-        text-decoration: none;
-        margin: 4px 300px;
-        border-radius: 25px;
-        cursor: pointer;
-    }
-
-    .submit:hover:before {
-        transform: scale(1.1);
-    }
-
-    .submit:hover {
-        background-color: rgb(255, 145, 145);
-    }
-    </style>
+    <link rel="stylesheet" href="../styles/main_ask.css">
 
 </head>
 
@@ -222,6 +138,7 @@
         </div>
     </nav>
     <br>
+
     <form action="" method="POST" enctype="multipart/form-data" class="form">
         <div class="form1">
             <label for="titile">Title</label><br>
