@@ -78,10 +78,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- end navigation -->
-
-    <title>Document</title>
-
-    <style type="text/css">
+	<title>Document</title>
+	 <style type="text/css">
     .li1 {
         color: coral;
         margin-top: 20px;
@@ -129,6 +127,7 @@
         width: 15%;
         padding: 4px 4px;
         box-sizing: border-box;
+		
         text-align: center;
     }
 
@@ -165,7 +164,45 @@
     .submit:hover {
         background-color: rgb(255, 145, 145);
     }
+
+@media screen and (max-width: 600px) {
+
+.form {
+	margin-left:90px;
+	width:400px;
+	}
+
+
+}
+.form1 {
+        margin-left: 20px;
+        margin-top: 20px;
+        color: white;
+}
+
+.input{
+	width:200px;
+	padding: 8px 20px;
+}
+.c1 {
+        color: black;
+        margin-left: 5px;
+        width: 150px;
+        padding: 4px 10px;
+        box-sizing: border-box;
+        text-align: center
+	}
+	
+  .submit {
+    
+    margin-top: 10px;
+	margin-left:-2px;
+
+  }
+}
     </style>
+
+    
 
 </head>
 
