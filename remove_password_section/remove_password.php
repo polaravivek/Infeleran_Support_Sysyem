@@ -8,12 +8,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
-// echo $_SESSION['loggedin'];
+// echo $_SESSION['email'];
 // die();
 // Include 
- 
+
 require_once "../database/db.php";
- 
+
 // Define variables and initialize with empty values
 $new_password = $confirm_password = "";
 $new_password_err = $confirm_password_err = "";
@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before updating the database
     if(empty($new_password_err) && empty($confirm_password_err)){
         // Prepare an update statement
-        $sql = "UPDATE student_login SET password = ? WHERE student_id = ?";
+        $sql = "UPDATE student_login SET password = ? WHERE email = ?";
        
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Set parameters
             $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $param_id = $_SESSION["student_id"];
+            $param_id = $_SESSION["email"];
 
             
             // Attempt to execute the prepared statement
