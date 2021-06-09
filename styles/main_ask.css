@@ -61,7 +61,6 @@
 }
 
 .submit {
-    margin-left: 2000px;
     text-align: center;
     background-color: rgb(255, 130, 130);
     box-shadow: 2px 2px 2px rgb(8, 8, 8);
@@ -81,3 +80,38 @@
 .submit:hover {
     background-color: rgb(255, 145, 145);
 }
+
+@media screen and (max-width: 600px) {
+
+    .form {
+        margin-left:90px;
+        width:400px;
+        }
+    
+    
+    }
+    .form1 {
+            margin-left: 20px;
+            margin-top: 20px;
+            color: white;
+    }
+    
+    .input{
+        width:200px;
+        padding: 8px 20px;
+    }
+    .c1 {
+            color: black;
+            margin-left: 5px;
+            width: 150px;
+            padding: 4px 10px;
+            box-sizing: border-box;
+            text-align: center
+        }
+    
+      .submit {
+    
+        margin-top: 10px;
+        margin-left:-2px;
+    
+      }

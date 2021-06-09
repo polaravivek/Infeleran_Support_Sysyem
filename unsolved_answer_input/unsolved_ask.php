@@ -3,7 +3,7 @@
 $question = htmlspecialchars($_GET["ques"]);
 
     include('../database/db.php');
-    
+
     session_start();
     if(!isset($_SESSION['loggedin'])) {
 		header("Location: ../index.php");
@@ -16,7 +16,6 @@ $question = htmlspecialchars($_GET["ques"]);
     while($row = $result_login->fetch_assoc()){
         $image_profile = $row["photo"];
     }
-
 
     $queryQuestion ="select * from questions where title = '$question'";
     $resultQuestion = $link->query($queryQuestion) or die($link->error);
@@ -128,7 +127,7 @@ $question = htmlspecialchars($_GET["ques"]);
                 </li>
                 <div style="width:30px"></div>
                 <li class="nav-item w-30">
-                    <a class="nav-link" href="../ask_section/ask.php"><b>Ask</b></a>
+                    <a class="nav-link" href="../ask_section/main_ask.php"><b>Ask</b></a>
                 </li>
                 <div style="width:30px"></div>
                 <li class="nav-item">
@@ -202,14 +201,13 @@ $question = htmlspecialchars($_GET["ques"]);
              echo '<img src="data:image;base64,'. base64_encode($image).'">';
           ?>
                 </div>
-
             </div>
         </section>
 
         <form action="" class="form" method="post" enctype="multipart/form-data">
             <div class="form1">
 
-                <label for="description">Description</label><br>
+                <label for="description">Answer</label><br>
                 <textarea class="textarea" name="description" id="" cols="30" rows="10"
                     placeholder="Enter the description"></textarea>
                 <p>Add other document</p>
