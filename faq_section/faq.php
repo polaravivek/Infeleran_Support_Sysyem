@@ -109,10 +109,10 @@
             <h1 class="title__accordion">FAQ</h1>
 
             <input type="text" onkeyup="filter()" placeholder="Search.." id="search">
-            <span class="separate">OR</span>
+            <!-- <span class="separate">OR</span> -->
             <div class="container">
 
-                <input type="button" value="Ask" class="ask1">
+                <!-- <input type="button" value="Ask" class="ask1"> -->
 
                 <ul id="menu">
                     <li>

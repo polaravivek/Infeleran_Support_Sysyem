@@ -38,7 +38,7 @@ $question = htmlspecialchars($_GET["ques"]);
 
     $items = array();
     while($row = $result->fetch_assoc()) {
-        $item = new Answers($row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['created_at']);
+        $item = new Answers($row['id'],$row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['class_id'],$row['created_at']);
 
         $items[] = $item;
     }
