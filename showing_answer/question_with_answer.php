@@ -36,7 +36,7 @@ $question = htmlspecialchars($_GET["ques"]);
 
     $items = array();
     while($row = $result->fetch_assoc()) {
-        $item = new Answers($row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['created_at']);
+        $item = new Answers($row['id'],$row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['class_id'],$row['created_at']);
 
         $items[] = $item;
     }
@@ -67,6 +67,55 @@ $question = htmlspecialchars($_GET["ques"]);
 
     <!-- end navigation -->
 
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+
+    <style>
+    .answer-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin: 5px;
+    }
+
+    .answer-child {
+        display: block;
+    }
+
+    .answer-childs {
+        flex-direction: column;
+    }
+
+    input,
+    i {
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    i {
+        color: lime;
+    }
+
+    .no {
+        box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+        -webkit-box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+        -moz-box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+    }
+
+    .yes {
+        background-color: lime;
+    }
+
+    .like-section {
+        display: flex;
+    }
+
+    .liked {
+        margin-right: 5px;
+    }
+    </style>
 </head>
 
 <body>
@@ -199,12 +248,17 @@ $question = htmlspecialchars($_GET["ques"]);
                 ";
         }else{
             foreach($items as $row){
+							
                 $name = $row->get_answer_name();
                 $answer = $row->get_answer();
                 $answer_image = $row->get_answered_document();
-        ?>
+								$id = $row->get_id();
+								$class_id = $row->get_class_id();
+								$liked = $row->get_liked();
+								$verified = $row->get_verified();
+							?>
 
-        <div class="list_box">
+        <div class="list_box" id='post<?php echo $id ?>'>
             <div class="answer_user_details">
                 <p class="answer_user_text"><?php echo $name ?></p>
             </div>
@@ -225,6 +279,18 @@ $question = htmlspecialchars($_GET["ques"]);
                     ?>
                 </div>
 
+            </div>
+            <div class='like-section'>
+                <h3 class='liked' id='liked'> <?php echo $liked ; ?> </h3>
+                <i class='<?php echo $class_id?> fa-thumbs-up fa-2x' id='like_<?php echo $id ?>' onclick='go("<?php echo $id;
+      $aa = $id?>")'></i>
+            </div>
+            <div class='answer-childs' id='answer-childs'>
+
+                <input type='submit' class='<?php echo $verified ?>' id='satisfied<?php echo $id ?>' name='satisfied'
+                    value='Satisfied' onclick='goo("<?php echo $id ?>")'>
+                <input type="hidden" id="verified<?php echo $id ?>" value="<?php echo $verified ?>">
+                <span class='span' id='span'></span>
             </div>
         </div>
         <?php

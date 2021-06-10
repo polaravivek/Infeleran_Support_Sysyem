@@ -109,7 +109,7 @@
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
                             <a class="dropdown-item" href="../profile_dropdown/profile.php">Profile</a>
                             <a class="dropdown-item" href="#">My Questions</a>
-                            <a class="dropdown-item" href="../remove_password_section/remove_password.php">Reset
+                            <a class="dropdown-item" href="../reset_password_section/reset_password.php">Reset
                                 Password</a>
                             <a class="dropdown-item" href="../logout_section/logout.php">Log Out</a>
                         </div>

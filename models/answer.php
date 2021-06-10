@@ -9,7 +9,10 @@
         public $verified;
         public $created_at;
       
-        function __construct($question_name, $answer_name, $title, $answer, $answered_document, $liked, $verified, $created_at) {
+        function __construct($id,$question_name, $answer_name, $title, $answer, $answered_document, $liked, $verified,
+        $class_id, $created_at) {
+          
+          $this->id = $id;
           $this->question_name = $question_name;
           $this->answer_name = $answer_name;
           $this->title = $title;
@@ -18,6 +21,14 @@
           $this->liked = $liked;
           $this->verified = $verified;
           $this->created_at = $created_at;
+          $this->class_id = $class_id;
+        }
+        
+        function get_class_id(){
+          return $this->class_id;
+        }
+        function get_id() {
+          return $this->id;
         }
         function get_question_name() {
           return $this->question_name;
