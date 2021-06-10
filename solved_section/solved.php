@@ -208,7 +208,7 @@
 
     <div class="search_div">
         <div class="search-box">
-            <input type="text" placeholder=" " /><span></span>
+            <input type="text" placeholder=" " id="myinput" onkeyup="search()" /><span></span>
         </div>
         <span style="font-size:1.5rem;margin-top: 20px;margin-left: 20px">Click Me</span>
     </div>
@@ -217,7 +217,7 @@
 
     <!-- end search box -->
 
-    <div class="cont">
+    <div class="cont" id="ul">
 
         <?php
             $i = 0;
@@ -284,6 +284,37 @@
     <script>
     function myTrim(x) {
         return x.replace(/^\s+|\s+$/gm, '');
+    }
+
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function search() {
+        let input = document.getElementById('myinput').value
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName('main_question_div');
+
+        for (i = 0; i < x.length; i++) {
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display = "none";
+            } else {
+                x[i].style.display = "block";
+            }
+        }
     }
 
     $(document).ready(function() {
