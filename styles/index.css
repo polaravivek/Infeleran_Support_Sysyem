@@ -8,25 +8,34 @@ body{
     margin: 0 auto;
     padding: 0;
     font-family: Verdana;
+   
     color: white;
-
+   
 }
-
 header{
    margin: auto;
    height: 80vh;
-    background-image:url("../images/index_back.png");
+    background-image:url("../images/infe1.jpeg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
     font-family: Verdana;
 }
+.box {
+ 
+  top: 42px;
+  margin-left: 580px;
+  width:200px;
+}
+
 .mid > a{border: 0;
     color: white;
     text-decoration: none;
    display: block;
    padding: 14px;
    font-size: small;
+   box-shadow: 2px 2px 2px rgb(8, 8, 8);
+    border-radius: 25px;
    background-color: black;
    width: 100px;
    margin: auto;
@@ -34,12 +43,13 @@ header{
    font-family: sans-serif;
 }
 .mid > a:hover{
-    background-color: blue;
+    background-color: rgb(255, 145, 145);
 }
 body header{
     width: auto;
     padding: 0 auto;
     font-family: Verdana;
+  
 }
 
 .clearfix{
@@ -71,20 +81,22 @@ body header{
 }
 /*-----------txt------------*/
 .txt{
-    height: 35vh;
+    height: 230vh;
     padding: 35px;
     background: radial-gradient(white,gray);
     margin: 35px;
-    text-align: center;
-    font-size: 50px;
+   
+    font-size: 30px;
     color: rgb(22, 22, 21);
     font-weight: bold;
     font-family: Verdana;
 }
-
+.p{
+	font-size:20px
+}
 
 .hed{
-    background-color: black;
+    background-color: white;
 }
 
 
@@ -96,4 +108,26 @@ body header{
     padding: 10px;
     background: black;
     color: white;
+}
+
+@media (max-width: 700px) {
+	
+	.txt{
+    height: 580vh;
+    padding: 35px;
+    background: radial-gradient(white,gray);
+    margin: 35px;
+   
+    font-size: 30px;
+    color: rgb(22, 22, 21);
+    font-weight: bold;
+    font-family: Verdana;
+}
+
+.box {
+ 
+  top: 42px;
+  margin-left: 160px;
+  width:200px;
+}
 }

@@ -305,6 +305,59 @@ $question = htmlspecialchars($_GET["ques"]);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
+    $(document).ready(function() {
+        $('.satisfied').on('click', function() {
+            $div = $(this).closest('div');
+
+            var data2 = $div.children('div').children('span').map(function() {
+                return $(this).text();
+            }).get();
+
+            console.log(data2);
+        });
+    });
+
+    let a;
+    const like = document.getElementById('like');
+
+    function go(id) {
+        a = id;
+        jQuery.ajax({
+            url: '../likes/setlike.php',
+            type: 'post',
+            data: 'id=' + id,
+            success: function(result) {
+                result = jQuery.parseJSON(result);
+                if (result.op == 'like') {
+                    jQuery('#like_' + id).removeClass('far');
+                    jQuery('#like_' + id).addClass('fas');
+                } else if (result.op == 'unlike') {
+                    jQuery('#like_' + id).addClass('far');
+                    jQuery('#like_' + id).removeClass('fas');
+                }
+                jQuery('#post' + id + ' #liked').html(result.like_count);
+            }
+        })
+
+    }
+
+    function goo(id) {
+        jQuery.ajax({
+            url: '../likes/setdislike.php',
+            type: 'post',
+            data: 'id=' + id,
+            success: function(result) {
+                result = jQuery.parseJSON(result);
+
+                if (result.op == 'like') {
+                    jQuery('#satisfied' + id).addClass('yes');
+                } else if (result.op == 'unlike') {
+                    jQuery('#satisfied' + id).removeClass('yes');
+                }
+            }
+        })
+    }
+
     function myTrim(x) {
         return x.replace(/^\s+|\s+$/gm, '');
     }
