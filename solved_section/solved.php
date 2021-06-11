@@ -14,6 +14,7 @@
 
     while($row = $result_login->fetch_assoc()){
         $image_profile = $row["photo"];
+        $name = $row["name"];
     }
 
 	// if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
@@ -21,7 +22,8 @@
 	// 	exit;
 	// }
 
-    $query="select * from questions where solved = 1";
+    $query="select * from questions where solved > 0 AND name != '$name'";
+
     $result = $link->query($query) or die($link->error);
 
     $items = array();

@@ -38,7 +38,12 @@
           $description=mysqli_real_escape_string($link, $_POST["description"]);
 
           $image = $_FILES['photo']['name'];
-          $images = addslashes(file_get_contents($_FILES["photo"]["tmp_name"]));
+          if($image){
+            $images = addslashes(file_get_contents($_FILES["photo"]["tmp_name"]));
+          }else{
+              $images = "";
+          }
+          
         if (count($errors)== 0) {
 
           $query = "INSERT INTO questions(name, title,category, description, document,unsolved) VALUES ('$name','$title', '$category','$description', '$images','1')";

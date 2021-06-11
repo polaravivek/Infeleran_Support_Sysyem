@@ -33,7 +33,7 @@ $question = htmlspecialchars($_GET["ques"]);
         $image = $row['document'];
     }
 
-    $query="select * from solved where title = '$title'";
+    $query="select * from solved where title = '$title' AND verified = 'yes' ";
     $result = $link->query($query) or die($link->error);
 
     $items = array();
@@ -42,12 +42,70 @@ $question = htmlspecialchars($_GET["ques"]);
 
         $items[] = $item;
     }
+    
+    $queryNotVerified="select * from solved where title = '$title' AND verified = 'no' ORDER BY liked DESC ";
+    $resultNotVerified = $link->query($queryNotVerified) or die($link->error);
+
+    $itemsNotVerified = array();
+    while($row = $resultNotVerified->fetch_assoc()) {
+        $item = new Answers($row['id'],$row['question_name'],$row['answer_name'],$row['title'],$row['answer'],$row['answered_document'],$row['liked'],$row['verified'],$row['class_id'],$row['created_at']);
+
+        $itemsNotVerified[] = $item;
+    }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+    <style>
+    .answer-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin: 5px;
+    }
+
+    .answer-child {
+        display: block;
+    }
+
+    .answer-childs {
+        flex-direction: column;
+    }
+
+    input,
+    i {
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    i {
+        color: lime;
+    }
+
+    .no {
+        box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+        -webkit-box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+        -moz-box-shadow: 4px 8px 36px -2px rgba(73, 60, 60, 0.75);
+    }
+
+    .yes {
+        background-color: lime;
+    }
+
+    .like-section {
+        display: flex;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+
+    .liked {
+        margin-right: 5px;
+    }
+    </style>
 
     <title>question and answers</title>
     <link rel="stylesheet" href="../styles/question_with_answer.css?v=<?php echo time(); ?>">
@@ -68,6 +126,9 @@ $question = htmlspecialchars($_GET["ques"]);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- end navigation -->
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 </head>
 
@@ -153,7 +214,6 @@ $question = htmlspecialchars($_GET["ques"]);
 			        ?>
                 </span>
             </div>
-
         </div>
 
         <div class="description">
@@ -166,11 +226,20 @@ $question = htmlspecialchars($_GET["ques"]);
                         echo $description;
                     ?>
 
+                <?php
+                    if($image){
+                        
+                ?>
                 <div class="document_img">
                     <?php
                             echo '<img src="data:image;base64,'.base64_encode($image).'">';
                         ?>
                 </div>
+                <?php
+                    }else{
+                        
+                    }
+                ?>
             </div>
 
 
@@ -202,20 +271,19 @@ $question = htmlspecialchars($_GET["ques"]);
                 $name = $row->get_answer_name();
                 $answer = $row->get_answer();
                 $answer_image = $row->get_answered_document();
-                $verified = $row->get_verified();
+				$id = $row->get_id();
+				$class_id = $row->get_class_id();
+				$liked = $row->get_liked();
+				$verified = $row->get_verified();
         ?>
 
         <div class="list_box">
             <?php
-            if($verified == '1'){
+            
                 echo '<div class="answer_user_details" style="background-color: green;">
                 <p class="answer_user_text" style="color:white;">'.$name.'</p>
         </div>';
-        }else{
-            echo '<div class="answer_user_details" style="color:#929292">
-                <p class="answer_user_text">'.$name.'</p>
-        </div>';
-        }
+
         ?>
 
             <h2 style="margin: 40px 40px 5px 100px">Answer</h2>
@@ -235,10 +303,64 @@ $question = htmlspecialchars($_GET["ques"]);
                 </div>
 
             </div>
+
+            <div class='like-section'>
+                <h3 class='liked' id='liked'> <?php echo $liked ; ?> </h3>
+                <i class='<?php echo $class_id?> fa-thumbs-up fa-2x' id='like_<?php echo $id ?>' onclick='go("<?php echo $id;
+      $aa = $id?>")'></i>
+            </div>
+
         </div>
         <?php
             }
         ?>
+        <?php
+            }
+        ?>
+
+        <?php
+            
+            foreach($itemsNotVerified as $row){
+                $name = $row->get_answer_name();
+                $answer = $row->get_answer();
+                $answer_image = $row->get_answered_document();
+				$id = $row->get_id();
+				$class_id = $row->get_class_id();
+				$liked = $row->get_liked();
+				$verified = $row->get_verified();
+        ?>
+
+        <div class="list_box">
+            <?php
+
+            echo '<div class="answer_user_details" style="color:#929292">
+                <p class="answer_user_text">'.$name.'</p>
+        </div>';
+
+        ?>
+
+            <h2 style="margin: 40px 40px 5px 100px">Answer</h2>
+
+            <div class="description_with_doc">
+
+                <?php
+                    echo $answer;
+                ?>
+
+                <div class="document_img">
+                    <?php
+                        if($answer_image != null){
+                            echo '<img src="data:image;base64,'.base64_encode($answer_image).'">';
+                        }
+                    ?>
+                </div>
+            </div>
+            <div class='like-section'>
+                <h3 class='liked' id='liked'> <?php echo $liked ; ?> </h3>
+                <i class='<?php echo $class_id?> fa-thumbs-up fa-2x' id='like_<?php echo $id ?>' onclick='go("<?php echo $id;
+      $aa = $id?>")'></i>
+            </div>
+        </div>
         <?php
             }
         ?>
@@ -251,6 +373,37 @@ $question = htmlspecialchars($_GET["ques"]);
     <script>
     function myTrim(x) {
         return x.replace(/^\s+|\s+$/gm, '');
+    }
+
+    const question = document.getElementById('question').innerHTML;
+    const name = document.getElementById('name').innerHTML;
+    var questionWithoutSpace = myTrim(question);
+    var nameWithoutHyphon = myTrim(name).slice(1);
+
+    let a;
+
+    function go(id) {
+        a = id;
+
+        jQuery.ajax({
+            url: 'setlike.php',
+            type: 'post',
+            data: {
+                'id': id,
+            },
+            success: function(result) {
+                result = jQuery.parseJSON(result);
+
+                if (result.op == 'like') {
+                    jQuery('#like_' + id).removeClass('far');
+                    jQuery('#like_' + id).addClass('fas');
+                } else if (result.op == 'unlike') {
+                    jQuery('#like_' + id).addClass('far');
+                    jQuery('#like_' + id).removeClass('fas');
+                }
+                jQuery('#post' + id + ' #liked').html(result.like_count);
+            }
+        })
     }
 
     $(document).ready(function() {

@@ -104,8 +104,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="help-block"><?php echo $confirm_password_err; ?></span>
                 </div>
                 <button type="submit" value="Submit" class="btn-1">Change Password</button>
-                <a href="../unsolved_section/fetch_questions.php"><button class="btn-2">Cancel</button></a>
-
+                <a href="../unsolved_section/fetch_questions.php"><button type="button"
+                        class="btn-2">Cancel</button></a>
             </form>
         </div>
     </div>

@@ -63,7 +63,7 @@ $question = htmlspecialchars($_GET["ques"]);
            
             $query = "INSERT INTO solved(answer_name, title,question_name, answer, answered_document) VALUES ('$ansname','$title', '$name','$ansdescription', '$image')";
         
-            
+
           if (mysqli_query($link, $query)) {
 
                header('Location: ../unsolved_section/fetch_questions.php');
@@ -195,12 +195,23 @@ $question = htmlspecialchars($_GET["ques"]);
          echo $description;
         ?>
                 </p>
+                <?php
+                    if($image != null){
+                        
+                ?>
                 <h3>Document</h3>
+
                 <div class="document_img">
                     <?php
              echo '<img src="data:image;base64,'. base64_encode($image).'">';
           ?>
                 </div>
+                <?php
+                    }else{
+                        
+                    }
+                ?>
+
             </div>
         </section>
 
