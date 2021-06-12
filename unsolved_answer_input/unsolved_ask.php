@@ -111,14 +111,14 @@ $question = htmlspecialchars($_GET["ques"]);
 
     <!-- navigation bar -->
     <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
-        <a href="/" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
+        <a href="../index.php" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
                 style="width: 130px;height:50px;background-color: #fff;	"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse w-50" id="collapsingNavbar3">
             <ul class="navbar-nav w-100 justify-content-center">
-                <li class="nav-item justify-content-center w-30">
+                <li class="nav-item active justify-content-center w-30">
                     <a class="nav-link " href="../unsolved_section/fetch_questions.php"><b>Unsolved</b></a>
                 </li>
                 <div style="width:30px"></div>
@@ -151,7 +151,10 @@ $question = htmlspecialchars($_GET["ques"]);
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
                             <a class="dropdown-item" href="../profile_dropdown/profile.php">Profile</a>
-                            <a class="dropdown-item" href="#">My Questions</a>
+                            <a class="dropdown-item" href="../my_questions_section/my_fetch_question.php">My
+                                Questions</a>
+                            <a class="dropdown-item" href="../reset_password_section/reset_password.php">Reset
+                                Password</a>
                             <a class="dropdown-item" href="../logout_section/logout.php">Log Out</a>
                         </div>
                     </li>

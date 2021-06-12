@@ -94,7 +94,7 @@
 
     <!-- navigation bar -->
     <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
-        <a href="/" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
+        <a href="../index.php" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
                 style="width: 130px;height:50px;background-color: #fff;	"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
             <span class="navbar-toggler-icon"></span>
@@ -109,8 +109,8 @@
                     <a class="nav-link" href="../solved_section/solved.php"><b>Solved</b></a>
                 </li>
                 <div style="width:30px"></div>
-                <li class="nav-item w-30 active">
-                    <a class="nav-link" href="../ask_section/ask.php"><b>Ask</b></a>
+                <li class="nav-item active w-30">
+                    <a class="nav-link" href="../ask_section/main_ask.php"><b>Ask</b></a>
                 </li>
                 <div style="width:30px"></div>
                 <li class="nav-item">
@@ -134,7 +134,10 @@
                         <div class="dropdown-menu dropdown-menu-right"
                             style="border-color: black;box-shadow: 2px 2px 2px rgb(87, 87, 87); margin-top: 5px ; margin-right: 20px">
                             <a class="dropdown-item" href="../profile_dropdown/profile.php">Profile</a>
-                            <a class="dropdown-item" href="#">My Questions</a>
+                            <a class="dropdown-item" href="../my_questions_section/my_fetch_question.php">My
+                                Questions</a>
+                            <a class="dropdown-item" href="../reset_password_section/reset_password.php">Reset
+                                Password</a>
                             <a class="dropdown-item" href="../logout_section/logout.php">Log Out</a>
                         </div>
                     </li>
@@ -142,6 +145,7 @@
             </div>
         </div>
     </nav>
+
     <br>
 
     <form action="" method="POST" enctype="multipart/form-data" class="form">

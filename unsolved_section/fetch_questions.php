@@ -69,7 +69,7 @@
     <!-- navigation bar -->
 
     <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center">
-        <a href="/" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
+        <a href="../index.php" class="navbar-brand d-flex mr-auto"><img src="../images/logo.png"
                 style="width: 130px;height:50px;background-color: #fff;	"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3">
             <span class="navbar-toggler-icon"></span>
