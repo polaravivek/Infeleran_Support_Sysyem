@@ -41,6 +41,24 @@ body
       
       
    }
+   
+   .signup input[type="button"]{border: 0;
+      background: none;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      border: 2px solid #4398db;
+      padding: 14px 40px;
+      outline:none;
+      color: white;
+      border-radius:24px;
+      transition: 00.25s; 
+      cursor: pointer;
+   }
+   
+   .signup input[type="button"]:hover{
+      background: darkblue;  
+   }
    .fname input[type="text"]:focus,.lname input[type ="text"]:focus,.email input[type="email"]:focus,.mno input[type ="tel"]:focus,.pswrd input[type ="password"]:focus
    {
       width: 280px;
@@ -62,4 +80,4 @@ body
    }
    .send input[type="submit"]:hover{
       background: aquamarine
-   } 
+   }
