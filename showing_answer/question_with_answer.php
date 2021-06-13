@@ -303,7 +303,6 @@ $question = htmlspecialchars($_GET["ques"]);
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
     <script>
     function myTrim(x) {
         return x.replace(/^\s+|\s+$/gm, '');
@@ -315,8 +314,6 @@ $question = htmlspecialchars($_GET["ques"]);
     var nameWithoutHyphon = myTrim(name).slice(1);
 
     let a;
-    let que;
-    let nam;
 
     function go(id) {
         a = id;

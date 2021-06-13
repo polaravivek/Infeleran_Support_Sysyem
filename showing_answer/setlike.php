@@ -15,7 +15,7 @@ if(isset($_POST['id']) && $_POST['id']>0) {
     }
 
     mysqli_query($link, $sql);
-    
+
     $row=mysqli_fetch_assoc(mysqli_query($link, "select * from solved where id='$id'"));
     
     echo json_encode([

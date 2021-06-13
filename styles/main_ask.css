@@ -68,7 +68,7 @@
     border: none;
     padding: 8px 24px;
     text-decoration: none;
-    margin: 4px 300px;
+    margin: 4px 43%;
     border-radius: 25px;
     cursor: pointer;
 }
@@ -112,6 +112,5 @@
       .submit {
     
         margin-top: 10px;
-        margin-left:-2px;
     
       }

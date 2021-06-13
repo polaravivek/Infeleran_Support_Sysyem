@@ -86,7 +86,7 @@
 
     <title>Document</title>
 
-    <link rel="stylesheet" href="../styles/main_ask.css">
+    <link rel="stylesheet" href="../styles/main_ask.css?v=<?php echo time(); ?>">
 
 </head>
 

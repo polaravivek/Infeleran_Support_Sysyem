@@ -280,7 +280,7 @@ $question = htmlspecialchars($_GET["ques"]);
 				$verified = $row->get_verified();
         ?>
 
-        <div class="list_box">
+        <div class="list_box post<?php echo $id ?>">
             <?php
             
                 echo '<div class="answer_user_details" style="background-color: green;">
@@ -289,7 +289,7 @@ $question = htmlspecialchars($_GET["ques"]);
 
         ?>
 
-            <h2 style="margin: 40px 40px 5px 100px">Answer</h2>
+            <h2 style=" margin: 40px 40px 5px 100px">Answer</h2>
 
             <div class="description_with_doc">
 
@@ -333,9 +333,8 @@ $question = htmlspecialchars($_GET["ques"]);
 				$verified = $row->get_verified();
         ?>
 
-        <div class="list_box">
+        <div class="list_box post<?php echo $id ?>">
             <?php
-
             echo '<div class="answer_user_details" style="color:#929292">
                 <p class="answer_user_text">'.$name.'</p>
         </div>';
@@ -404,7 +403,7 @@ $question = htmlspecialchars($_GET["ques"]);
                     jQuery('#like_' + id).addClass('far');
                     jQuery('#like_' + id).removeClass('fas');
                 }
-                jQuery('#post' + id + ' #liked').html(result.like_count);
+                jQuery('.post' + id + ' .liked').html(result.like_count);
             }
         })
     }

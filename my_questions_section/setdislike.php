@@ -9,14 +9,14 @@ if(isset($_POST['id']) && $_POST['id']>0) {
     if(isset($_COOKIE['verified'.$id])) {
         setcookie('verified'.$id, "yes", 1);
          $sql = "update solved set verified = 'no' where id='$id'";
-         $sql2 = "update questions set solved = solved-1 WHERE name ='$name' AND title = '$question'";
+         $sql2 = "update questions set solved = solved-1, unsolved = unsolved+1 WHERE name ='$name' AND title = '$question'";
         $op = "unlike";
     }
     else
     {
         setcookie('verified'.$id, "no", time()+60*600*24*5);
          $sql = "update solved set verified = 'yes' where id='$id'";
-         $sql2 = "update questions set solved = solved+1 WHERE name ='$name' AND title = '$question'";
+         $sql2 = "update questions set solved = solved+1, unsolved = unsolved-1 WHERE name ='$name' AND title = '$question'";
         $op = "like";
     }
     
