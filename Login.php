@@ -98,21 +98,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
     <meta charset="utf-8">
     <title>Login page</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/login.css">
 </head>
 
 <body>
     <form class="box" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <h1>Login</h1>
-        <div <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>> E-mail : <input type="text" name="email" placeholder="type E-mail" required   value="<?php echo $email; ?>">
-         <span class="help-block"><?php echo $email_err; ?></span>
+        <div <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>> E-mail : <input type="text" name="email"
+                placeholder="type E-mail" required value="<?php echo $email; ?>">
+            <span class="help-block"><?php echo $email_err; ?></span>
         </div>
-        <div <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>> Password : <input type="password" name="password" placeholder="password">
-           <span class="help-block"><?php echo $password_err; ?></span>
+        <div <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>> Password : <input type="password"
+                name="password" placeholder="password">
+            <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <input type="submit" name="submit" value="Login">
         <div><a href="index.php"><input type="button" name="Back" value="Back"></a>
-
             </a>
         </div>
     </form>

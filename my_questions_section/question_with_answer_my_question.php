@@ -82,6 +82,7 @@ $question = htmlspecialchars($_GET["ques"]);
 
     .answer-childs {
         flex-direction: column;
+        margin-left: 100px;
     }
 
     input,

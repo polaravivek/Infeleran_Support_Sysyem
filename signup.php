@@ -196,38 +196,45 @@ if(!email_validation($_POST["email"])) {
 
 
 <html>
+
 <head>
     <title>Sign-Up page</title>
-    <link rel="stylesheet" href="styles/signup.css">
+    <link rel="stylesheet" href="styles/signup.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
-    <form class="signup"action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form class="signup" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h1>Register</h1>
         <div class="fname <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
-            Name : <input type="text" name="name" placeholder="Please enter your full name" required="" value="<?php echo $name; ?>">
-             <span class="help-block"><?php echo $name_err; ?></span>
+            Name : <input type="text" name="name" placeholder="Please enter your full name" required=""
+                value="<?php echo $name; ?>">
+            <span class="help-block"><?php echo $name_err; ?></span>
         </div>
-        
+
         <div class="email <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
             E-mail : <input type="email" name="email" placeholder="E-mail" required value="<?php echo $email; ?>">
             <span class="help-block"><?php echo $email_err; ?></span>
         </div>
         <div class="mno <?php echo (!empty($phone_err)) ? 'has-error' : ''; ?>">
-            Mobile No. : <input type="tel" name="phone" placeholder="Mobile Number" required value="<?php echo $phone; ?>">
+            Mobile No. : <input type="tel" name="phone" placeholder="Mobile Number" required
+                value="<?php echo $phone; ?>">
             <span class="help-block"><?php echo $phone_err; ?></span>
         </div>
         <div class="pswrd  <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
-            Password : <input type="password" name="password" placeholder="Set password" value="<?php echo $password; ?>">
+            Password : <input type="password" name="password" placeholder="Set password"
+                value="<?php echo $password; ?>">
             <span class="help-block"><?php echo $password_err; ?></span>
         </div>
         <div class="pswrd <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-            Confirm Password : <input type="password" name="confirm_password" placeholder="Confirm password" value="<?php echo $confirm_password; ?>">
+            Confirm Password : <input type="password" name="confirm_password" placeholder="Confirm password"
+                value="<?php echo $confirm_password; ?>">
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
         </div>
         <div class="send">
             <input type="submit" name="submit" value="Submit">
-
+        </div>
+        <div><a href="index.php"><input type="button" name="Back" value="Back"></a>
+            </a>
         </div>
 
 

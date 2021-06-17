@@ -118,7 +118,7 @@ $question = htmlspecialchars($_GET["ques"]);
         </button>
         <div class="navbar-collapse collapse w-50" id="collapsingNavbar3">
             <ul class="navbar-nav w-100 justify-content-center">
-                <li class="nav-item active justify-content-center w-30">
+                <li class="nav-item justify-content-center w-30">
                     <a class="nav-link " href="../unsolved_section/fetch_questions.php"><b>Unsolved</b></a>
                 </li>
                 <div style="width:30px"></div>
